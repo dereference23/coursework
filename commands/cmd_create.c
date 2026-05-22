@@ -1,3 +1,4 @@
+#include "../helpers.h"
 #include "../types.h"
 
 #include <ctype.h>
@@ -7,16 +8,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/param.h>
-
-static inline void fill_dat_path(char* const path, const char* const name)
-{
-	sprintf(path, "%s.dat", name);
-}
-
-static inline void fill_sch_path(char* const path, const char* const name)
-{
-	sprintf(path, "%s.schema", name);
-}
 
 static int check_name(const char* const name)
 {

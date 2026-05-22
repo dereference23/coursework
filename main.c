@@ -2,6 +2,7 @@
 
 #include "commands/cmd_create.h"
 #include "commands/cmd_help.h"
+#include "commands/cmd_insert.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -28,6 +29,8 @@ int main(int argc, char *argv[])
 		op = &cmd_help;
 	else if (!strcmp(cmd, "create"))
 		op = &cmd_create;
+	else if (!strcmp(cmd, "insert"))
+		op = &cmd_insert;
 
 	return exec_cmd(op, --argc, ++argv);
 }
