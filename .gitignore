@@ -1,0 +1,6 @@
+.*
+!.gitignore
+
+db
+*.dat
+*.schema
