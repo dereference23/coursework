@@ -20,8 +20,8 @@ int cmd_delete(int argc, char *argv[])
 
 	const char* const name = argv[0];
 	char path[MAX_PATH];
-	fill_sch_path(path, name);
 
+	fill_sch_path(path, name);
 	int fds = open(path, O_RDWR, 0644);
 	if (fds == -1) {
 		perror("open .schema");
@@ -44,7 +44,6 @@ int cmd_delete(int argc, char *argv[])
 	}
 
 	Schema *s = (Schema *)ms;
-
 	if (s->magic != SCH_MAGIC) {
 		fprintf(stderr, "Invalid magic for schema\n");
 		munmap(ms, 1UL << 30);

@@ -14,7 +14,7 @@ static int exec_cmd(int (*op)(int,char**), int argc, char *argv[])
 	if (op)
 		return op(--argc, ++argv);
 	
-    	fprintf(stderr, "Unknown command: %s (type 'help' for commands)\n", argv[0]);
+	fprintf(stderr, "Unknown command: %s (type 'help' for commands)\n", argv[0]);
 	return 1;
 }
 

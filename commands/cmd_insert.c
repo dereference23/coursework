@@ -33,10 +33,11 @@ int cmd_insert(int argc, char *argv[])
 	    fprintf(stderr, "Usage: insert <name> <val1> <val2> ...\n");
 	    return 1;
 	}
+
 	const char* const name = argv[0];
 	char path[MAX_PATH];
-	fill_sch_path(path, name);
 
+	fill_sch_path(path, name);
 	int fds = open(path, O_RDWR, 0644);
 	if (fds == -1) {
 		perror("open .schema");
@@ -52,7 +53,6 @@ int cmd_insert(int argc, char *argv[])
 	}
 
 	Schema *s = (Schema *)ms;
-
 	if (s->magic != SCH_MAGIC) {
 		fprintf(stderr, "Invalid magic for schema\n");
 		munmap(ms, 1UL << 30);
@@ -63,7 +63,6 @@ int cmd_insert(int argc, char *argv[])
 	int ncols = argc - 1;
 	if (ncols != s->ncols) {
 		fprintf(stderr, "Column count mismatch: expected %u, got %u\n", s->ncols, ncols);
-		perror("mmap");
 		munmap(ms, 1UL << 30);
 		close(fds);
 		return 1;
@@ -84,7 +83,6 @@ int cmd_insert(int argc, char *argv[])
 		msync(ms, sizeof(Schema), MS_SYNC);
 
 	fill_dat_path(path, name);
-
 	int fdd = open(path, O_RDWR, 0644);
 	if (fdd == -1) {
 		perror("open .dat");

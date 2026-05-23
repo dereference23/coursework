@@ -33,7 +33,6 @@ int cmd_select(int argc, char *argv[]) {
 	}
 
 	Schema *s = (Schema *)ms;
-
 	if (s->magic != SCH_MAGIC) {
 		fprintf(stderr, "Invalid magic for schema\n");
 		munmap(ms, 1UL << 30);
@@ -61,7 +60,6 @@ int cmd_select(int argc, char *argv[]) {
 	}
 
 	DataHeader *h = (DataHeader *)md;
-
 	if (h->magic != DB_MAGIC) {
 		fprintf(stderr, "Invalid magic for data\n");
 		munmap(ms, 1UL << 30);
