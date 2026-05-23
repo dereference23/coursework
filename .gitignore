@@ -1,6 +1,9 @@
 .*
 !.gitignore
 
+cosmocc/
+
 db
+db.*
 *.dat
 *.schema

@@ -1,6 +1,5 @@
 CC = gcc
 CFLAGS = -O2 -Wall -Wextra -Wpedantic -std=c2x
-LDLIBS = -lbsd
 
 SRC_FILES = main.c $(wildcard commands/*.c)
 
@@ -9,7 +8,7 @@ SRC_FILES = main.c $(wildcard commands/*.c)
 all: db
 
 db: $(SRC_FILES)
-	$(CC) $(CFLAGS) $(SRC_FILES) -o db $(LDLIBS)
+	$(CC) $(CFLAGS) $(SRC_FILES) -o db
 
 clean:
 	$(RM) db
