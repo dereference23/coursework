@@ -53,6 +53,13 @@ int cmd_insert(int argc, char *argv[])
 
 	Schema *s = (Schema *)ms;
 
+	if (s->magic != SCH_MAGIC) {
+		fprintf(stderr, "Invalid magic for schema\n");
+		munmap(ms, 1UL << 30);
+		close(fds);
+		return 1;
+	}
+
 	int ncols = argc - 1;
 	if (ncols != s->ncols) {
 		fprintf(stderr, "Column count mismatch: expected %u, got %u\n", s->ncols, ncols);
@@ -97,6 +104,15 @@ int cmd_insert(int argc, char *argv[])
 	}
 
 	DataHeader *h = (DataHeader *)md;
+	if (h->magic != DB_MAGIC) {
+		fprintf(stderr, "Invalid magic for data\n");
+		munmap(ms, 1UL << 30);
+		munmap(md, 1UL << 30);
+		close(fds);
+		close(fdd);
+		return 1;
+	}
+
 	if (h->capacity == h->size) {
 		/* TODO: grow capacity */
 		fprintf(stderr, "Not implemented\n");

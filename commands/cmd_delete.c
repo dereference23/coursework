@@ -44,6 +44,14 @@ int cmd_delete(int argc, char *argv[])
 	}
 
 	Schema *s = (Schema *)ms;
+
+	if (s->magic != SCH_MAGIC) {
+		fprintf(stderr, "Invalid magic for schema\n");
+		munmap(ms, 1UL << 30);
+		close(fds);
+		return 1;
+	}
+
 	uint8_t ncols = s->ncols;
 	uint8_t target_col;
 
@@ -98,6 +106,15 @@ int cmd_delete(int argc, char *argv[])
 	}
 
 	DataHeader *h = (DataHeader *)md;
+	if (h->magic != DB_MAGIC) {
+		fprintf(stderr, "Invalid magic for data\n");
+		munmap(ms, 1UL << 30);
+		munmap(md, 1UL << 30);
+		close(fds);
+		close(fdd);
+		return 1;
+	}
+
 	uint8_t *data_ptr = (uint8_t *)md + sizeof(DataHeader) + target_col * FIELD_SIZE;
 
 	int target_row;

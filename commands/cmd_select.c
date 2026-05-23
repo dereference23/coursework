@@ -34,6 +34,13 @@ int cmd_select(int argc, char *argv[]) {
 
 	Schema *s = (Schema *)ms;
 
+	if (s->magic != SCH_MAGIC) {
+		fprintf(stderr, "Invalid magic for schema\n");
+		munmap(ms, 1UL << 30);
+		close(fds);
+		return 1;
+	}
+
 	fill_dat_path(path, name);
 	int fdd = open(path, O_RDWR, 0644);
 	if (fdd == -1) {
@@ -54,6 +61,15 @@ int cmd_select(int argc, char *argv[]) {
 	}
 
 	DataHeader *h = (DataHeader *)md;
+
+	if (h->magic != DB_MAGIC) {
+		fprintf(stderr, "Invalid magic for data\n");
+		munmap(ms, 1UL << 30);
+		munmap(md, 1UL << 30);
+		close(fds);
+		close(fdd);
+		return 1;
+	}
 
 	uint8_t ncols = s->ncols;
 	/* Print header */
