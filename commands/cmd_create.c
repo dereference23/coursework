@@ -206,6 +206,8 @@ int cmd_create(int argc, char *argv[])
 		const char* pos = argv[2]+1;
 		for (int i = 0; i < ncols; ++i) {
 			s.cols[i].type = COL_UNKNOWN;
+			if (isspace(pos[0]))
+				++pos;
 			len = strlcpy(s.cols[i].name, pos, MAX_COL_NAME);
 			pos += len+1;
 		}
