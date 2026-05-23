@@ -1,6 +1,7 @@
 #include "types.h"
 
 #include "commands/cmd_create.h"
+#include "commands/cmd_delete.h"
 #include "commands/cmd_help.h"
 #include "commands/cmd_insert.h"
 #include "commands/cmd_select.h"
@@ -34,6 +35,8 @@ int main(int argc, char *argv[])
 		op = &cmd_insert;
 	else if (!strcmp(cmd, "select"))
 		op = &cmd_select;
+	else if (!strcmp(cmd, "delete"))
+		op = &cmd_delete;
 
 	return exec_cmd(op, --argc, ++argv);
 }

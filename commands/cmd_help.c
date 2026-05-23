@@ -6,6 +6,7 @@ int cmd_help(int argc, [[maybe_unused]] char *argv[]) {
 		"  create table <name> \"(<col1>, <col2>, ...)\"\n"
 		"  insert <name> <val1> <val2> ...\n"
 		"  select <name>\n"
+		"  delete <name> <col>=<val>\n"
 		"  help"
 	);
 
